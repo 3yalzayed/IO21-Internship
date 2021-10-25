@@ -1,0 +1,46 @@
+{% extends "poll/index.html" %}
+
+
+{% block main %}
+<div class="row">
+    <div class="col-lg-8 col-lg-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Cast Your Vote</h3>
+            </div>
+
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>{{  choice.question_text  }}</h2>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <hr />
+
+                        <form method="POST" action="{% url 'voted' choice.id %}">
+                            {% csrf_token %}
+                            {% for c in choice.choice_set.all %}
+                                <li>
+                                            <input type="radio" name="choice" value="{{c.id}}" id="choice{{  forloop.counter  }}" >
+                                            <label for="choice{{forloop.counter}}">
+                                                {{c.choice_text}}
+                                            </label> --- {{c.votes}}
+                                </li>
+                            {% endfor %}
+
+                            
+                            <hr />
+
+                            <input type="submit" value="Vote" class="btn btn-info" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
