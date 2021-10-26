@@ -6,5 +6,5 @@ urlpatterns = [
     path('', views.index, name="index"),
     path('<int:question_id>', views.showchoices, name="showchoices"),
     path('<int:question_id>/result', views.voted, name="voted"),
-    
+    path('form', views.contact),
 ]
