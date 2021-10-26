@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Question, Choice
 from django.http import HttpResponse
+from .form import ContactFrom
+from django.contrib import messages
 
 
 
@@ -28,3 +30,14 @@ def voted(request, question_id):
             return render(request, 'poll/index.html', {'choice': choiceobj})
     return render(request, 'poll/index.html')
     
+# forms
+def contact(request):
+    form = ContactFrom
+    if request.method == 'POST':
+        contactFrom = ContactFrom(request.POST)
+        if contactFrom.is_valid():
+            contactFrom.save()
+            messages.success(request, "Submitted")
+            return render(request, 'poll/form.html', {'form' : form})
+    
+    return render(request, 'poll/form.html', {'form' : form})
