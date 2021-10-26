@@ -17,4 +17,9 @@ class Choice(models.Model):
     votes = models.IntegerField(default=0)
     def __str__(self):
         return self.choice_text
+
+class ContactUs(models.Model):
+    fullName = models.CharField(max_length=50)
+    email = models.CharField(max_length=50)
+    message = models.TextField(max_length=400)
         
